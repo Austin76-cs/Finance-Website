@@ -1,0 +1,78 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    background-color: #01031d;
+    font-family: Arial, sans-serif;
+}
+
+header {
+    color: #fff;
+    text-align: center;
+    padding: 20px 0;
+}
+
+h1 {
+    color: rgb(231, 27, 122);
+    font-size: 36px;
+}
+
+h2 {
+    color: whitesmoke;
+    font-size: 50px;
+}
+
+.section {
+    display: flex;
+    max-width: 95%;
+    margin: 20px auto;
+    padding: 20px;
+    gap: 15px;
+    border: 2px solid rgb(139, 15, 15);
+    min-height: 280px;
+}
+
+.sub-area-one {
+    background-color: #353950;
+    padding: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex: 1 1 200px;
+}
+
+.sub-area {
+    background-color: #353950;
+    flex: 1 1 200px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+    text-align: center;
+}
+
+.amount-container {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.span_invest {
+    color: mediumslateblue;
+    font-size: 36px;
+    font-weight: bold;
+}
+
+/* Remove negative margins and positioning */
+.catagories, .amount-item {
+    position: static;
+    margin: 0;
+}
+
+#section-one {
+    height: auto; /* Use automatic height */
+}
