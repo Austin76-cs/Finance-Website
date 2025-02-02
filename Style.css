@@ -1,78 +1,47 @@
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-}
-
 body {
-    background-color: #01031d;
-    font-family: Arial, sans-serif;
+    background-color: rgb(12,14,35,255);
+    font-family: Arial, Helvetica, sans-serif;
 }
 
-header {
-    color: #fff;
-    text-align: center;
-    padding: 20px 0;
-}
-
-h1 {
-    color: rgb(231, 27, 122);
-    font-size: 36px;
-}
-
-h2 {
+.header-main{
     color: whitesmoke;
-    font-size: 50px;
-}
-
-.section {
-    display: flex;
-    max-width: 95%;
-    margin: 20px auto;
-    padding: 20px;
-    gap: 15px;
-    border: 2px solid rgb(139, 15, 15);
-    min-height: 280px;
-}
-
-.sub-area-one {
-    background-color: #353950;
-    padding: 40px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    flex: 1 1 200px;
-}
-
-.sub-area {
-    background-color: #353950;
-    flex: 1 1 200px;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    padding: 20px;
+    font-size: 30px;
+    width: 100%;
+    height: 50px;
     text-align: center;
-}
-
-.amount-container {
-    display: flex;
-    flex-direction: column;
-    gap: 10px;
-}
-
-.span_invest {
-    color: mediumslateblue;
-    font-size: 36px;
+    margin: 18px;
     font-weight: bold;
 }
-
-/* Remove negative margins and positioning */
-.catagories, .amount-item {
-    position: static;
-    margin: 0;
+.section-main{
+    display: flex;
+    justify-content: space-around;
+    width: 100%;
 }
-
-#section-one {
-    height: auto; /* Use automatic height */
+.dashboard-main{
+    flex: 1.3;
+    height: 200px;
+    text-align: center;
+    align-items: center;
+    display: flex;
+    justify-content: center;
+    margin: 0 15px;
+    padding: 20px;
+    background-color: rgba(20,31,49,255);
+    border-radius: 10px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+    color:white;
+    font-size: 42px;
+    font-weight: bold;
+    
+}
+.item-main{
+    flex: 1;
+    height: 200px;
+    text-align: center;
+    margin: 0 15px;
+    padding: 20px;
+    background-color: rgba(20,31,49,255);
+    border-radius: 10px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+    color:white;
 }

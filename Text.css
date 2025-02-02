@@ -1,0 +1,23 @@
+.green-text{
+    color:rgb(62, 160, 114);
+    font-size: 32px;
+}
+.red-text{
+    color:rgb(220, 53, 69);
+    font-size: 32px;
+}
+.purple-text{
+    color:rgb(102, 51, 153);
+    font-size: 32px;
+}
+.blue-text{
+    color: rgb(0, 102, 204);
+    font-size: 32px;
+}
+.gold-text{
+    color:rgb(255, 215, 0);
+    font-size: 32px;
+}
+.p-item{
+    margin: 15px;
+}
