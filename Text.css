@@ -21,3 +21,14 @@
 .p-item{
     margin: 15px;
 }
+.green-text-income{
+    color:rgb(62, 160, 114);
+    font-size: 38px;
+    display: flex;
+}
+.content-left{
+    text-align: left;
+    justify-content: left;
+    margin: 5px 0 0 12px;
+    font-size: 18px;
+}
