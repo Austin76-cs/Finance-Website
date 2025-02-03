@@ -1,5 +1,5 @@
 .green-text{
-    color:rgb(62, 160, 114);
+    color:#00ff00;
     font-size: 32px;
 }
 .red-text{
@@ -22,7 +22,7 @@
     margin: 15px;
 }
 .green-text-income{
-    color:rgb(62, 160, 114);
+    color:#00ff00;
     font-size: 38px;
     display: flex;
 }
