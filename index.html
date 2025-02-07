@@ -7,72 +7,60 @@
     <link rel="stylesheet" href="Text.css">
     <link rel="stylesheet" href="Reset.css">
     <link rel="stylesheet" href="Style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
+    
 </head>
 <body>
-    <header class="header-main" >Personal Finance Tracker</header>
-    <!-- Summary (First Row) -->
-    <section class="section-main">
-        <div class="dashboard-main">
-            Annual<br>Dashboard
-        </div>
-        <div class="item-main">
-            <h2><span class =green-text>$24,283</span></h2>
-            <p class="p-item">Total Income</p>
-        </div>
-        <div class="item-main">
-            <h2><span class="red-text">$786</span></h2>
-            <p class="p-item">Total Expenses</p>
-        </div>
-        <div class="item-main">
-            <h2><span class="purple-text">$2,283</span></h2>
-            <p class="p-item">Total Debt</p>
-        </div>
-        <div class="item-main">
-            <h2><span class="blue-text">$32,093</span></h2>
-            <p class="p-item">Total Invested</p>
-        </div>
-        <div class="item-main">
-            <h2><span class =gold-text>$6,321</span></h2>
-            <p class="p-item">Total Savings</p>
-        </div>
-    </section>
+    <!–– Header ––>
+    <div class="container">
+        <header class="main-header">
+            <h1>Personal Finance Tracker</h1>
+        </header>
+    </div>
 
-    <!-- Income (Second Row) -->
-    <div class="section-title"> <span style="color: #00ff00;">INCOME</span></div>
-    <section class="income-section"> 
-        <div class="income-summary">
-            <div class="category-container">
-                <p>Category</p>
-                <div class="green-line"></div>
-                <p>Salary</p>
-                <p>Other</p>
-            </div>
-            <div class="metrics-container">
-                <p>Goal</p>
-                <p>$9041</p>
-                <p>$1586</p>
-            </div>
-            <div class="metrics-container">
-                <p>Actual</p>
-                <p>$2215</p>
-                <p>$2372</p>
-                
-            </div>
-            <div class="metrics-container">
-                <p>Diff</p>
-                <p>$2142</p>
-                <p>$4145</p>
-            </div>
+    <!–– Dashboard Section ––>
+
+<div class="container">
+    <div class="dashboard"> <p>Annual</p><p>DashBoard</p></div>
+    <div class="dashboard-item">
+        <div class="dashboard-amount positive-text">$4325</div>
+        <p class="dashboard-category">Total Income</p>
+    </div>
+    <div class="dashboard-item">
+        <div class="dashboard-amount negative-text">$1325</div>
+        <p class="dashboard-category">Total Expenses</p>
+    </div>
+    <div class="dashboard-item">
+        <div class="dashboard-amount debt-text">$2325</div>
+        <p class="dashboard-category">Total Debt</p>
+    </div>
+    <div class="dashboard-item">
+        <div class="dashboard-amount invest-text">$5325</div>
+        <p class="dashboard-category">Total Invested</p>
+    </div>
+    <div class="dashboard-item">
+        <div class="dashboard-amount save-text">$10325</div>
+        <p class="dashboard-category">Total Saved</p>
+    </div>
+</div>
+
+<!–– Income Text ––>
+<div class="container positive-text section-label"><h2>INCOME</h2></div>
+<!–– Income Section ––>
+
+<div class="container">
+    <div class="table">
+        table
+    </div>
+    <div class="main-content">
+        graph
+    </div>
+
+</div>
 
 
-
-        </div>
-        <div class="income-context">content</div> 
-
-    </section>
-
-        
-
-
+<footer> hi </footer>
 </body>
 </html>
