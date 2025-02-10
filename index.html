@@ -60,10 +60,16 @@
                 <th>Diff.</th>
                 
             </tr>
+            <tr>
+                <td class="left-align">Salary</th>
+                <td>$4560</th>
+                <td>$350</th>
+                <td>$560</th>
+            </tr>
             
             <tr>
                 <td class="left-align">Side Gig</th>
-                <td>$4560</th>
+                <td>$560</th>
                 <td>$350</th>
                 <td>$560</th>
             </tr>
@@ -102,9 +108,51 @@
         </div>
 
         <div class="block-two">
-
-            
+            <h2 class="section-label">Pie Chart</h2>
+            <canvas id="pieChart" width="400" height="400"></canvas>
         </div>
+        <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+        <script>
+            const ctx = document.getElementById('pieChart').getContext('2d');
+            const pieChart = new Chart(ctx, {
+                type: 'pie',
+                data: {
+                    labels: ['Salary', 'Side Gig', 'Dividends', 'Other'],
+                    datasets: [{
+                        label: 'Financial Distribution',
+                        data: [60, 15, 5, 20], // Adjust percentages
+                        backgroundColor: [
+                            'rgb(0, 255, 0)', // Green for Savings
+                            'rgb(0, 102, 204)', // Blue for Investments
+                            'rgb(102, 51, 153)', // Purple for Debt
+                            'rgb(220, 53, 69)' // Red for Expenses
+                        ],
+                        borderColor: 'rgba(255, 255, 255, 0.2)',
+                        borderWidth: 1
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    plugins: {
+                        legend: {
+                            position: 'top',
+                            labels: {
+                                color: 'white', // Adjust for dark backgrounds
+                            }
+                        },
+                        tooltip: {
+                            callbacks: {
+                                label: function(tooltipItem) {
+                                    const value = tooltipItem.raw;
+                                    return `${value}%`;
+                                }
+                            }
+                        }
+                    }
+                }
+            });
+        </script>
+        
 
         <div class="block-three">
             block three

@@ -7,7 +7,7 @@
     --clr-gold:rgb(255, 215, 0);
     --clr-backround: hsl(235, 67%, 4%);
     --clr-content: #171b2c;
-    --fs-S: 1.2rem;
+    --fs-S: 1rem;
     --fs-M: 1.5rem;
     --fs-L: 1.8rem;
     --fs-XL: 4.8rem;
@@ -139,13 +139,19 @@ th{
 .block-two {
     height: 100%;
     width: 45%;
-    justify-content: space-between;
     display: flex;
     flex-direction: column;
+    justify-content: center;
+    align-items: center;
     border: #3e053c 1px solid;
-    padding: 4px 1px 1px 1px;
-    
+    padding: 1rem;
 }
+
+canvas {
+    max-width: 100%;
+    max-height: 90%;
+}
+
 .block-three {
     height: 100%;
     width: 32%;
@@ -159,7 +165,8 @@ th{
     margin: 15px;
     justify-content: space-between;
     line-height: 1.8;
-    font-size: 18px;
+    font-size: var(--fs-S);
+    text-align: center;
 }
 .bar-graph {
     min-height: 25%;
