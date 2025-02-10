@@ -119,37 +119,51 @@ th{
 }
 .main-content{
     min-width: min(65vh);
-    min-height: 30vh;
-    font-size: var(--fs-M);
+    min-height: 40vh;
+    font-size: var(--fs-S);
     color: var(--clr-white);
     flex: 1;
     background-color: var(--clr-content);
     display: flex;
     line-height: 1.1;
+    
 }
 .block-one {
     height: 100%;
     width: 23%;
-    justify-content: space-between;
     display: flex;
     flex-direction: column;
+    padding: 4px 1px 1px 1px;
+  
 }
 .block-two {
     height: 100%;
     width: 45%;
-    
     justify-content: space-between;
     display: flex;
     flex-direction: column;
+    border: #3e053c 1px solid;
+    padding: 4px 1px 1px 1px;
     
 }
 .block-three {
     height: 100%;
     width: 32%;
-    border: pink 1px solid;
     justify-content: space-between;
     display: flex;
     flex-direction: column;
+    margin-right: 14px;
 }
-
-
+.block-container {
+    display: flex;
+    margin: 15px;
+    justify-content: space-between;
+    line-height: 1.8;
+    font-size: 18px;
+}
+.bar-graph {
+    min-height: 25%;
+    min-width: 100%;
+    justify-content: center;
+    text-align: center;
+}
