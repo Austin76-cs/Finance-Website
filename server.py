@@ -7,16 +7,14 @@ import os
 
 app = Flask(__name__)
 app.config['SECRET_KEY'] = os.getenv('secret_cookie_key')
-app.config['SQLALCHEMY_DATABASE_URI'] = 'sqllite:///site.db'
+app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///site.db'
 db = SQLAlchemy(app)
 
 class User(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     email = db.Column(db.String(20), unique=True, nullable=False)
     password = db.Column(db.String(60), nullable=False)
-
-    def __repr__(self):
-        return f"User('{self.email}')"
+    plaid_access_token = db.Column(db.String(200))
 
 @app.route('/')
 def home():
