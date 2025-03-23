@@ -1,7 +1,7 @@
+# query.py
+from models import User, Transaction, Savings  # Import from models.py
 from datetime import datetime
-from sqlalchemy import func
 import calendar
-from server import User, Transaction, Savings
 
 def get_monthly_income(user, selected_month, selected_year):
     # Querys transactions for the selected month and year

@@ -25,11 +25,11 @@
 <div class="container">
     <div class="dashboard"> <p>Annual</p><p>DashBoard</p></div>
     <div class="center-item">
-        <div class="dashboard-amount positive-text">$4325</div>
+        <div class="dashboard-amount positive-text">${{ "{:,.2f}".format(total_income) }}</div>
         <p class="dashboard-category">Total Income</p>
     </div>
     <div class="center-item">
-        <div class="dashboard-amount negative-text">$1325</div>
+        <div class="dashboard-amount negative-text">${{ "{:,.2f}".format(abs(total_expenses)) }}</div>
         <p class="dashboard-category">Total Expenses</p>
     </div>
     <div class="center-item">
