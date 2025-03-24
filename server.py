@@ -30,7 +30,7 @@ def home():
     total_income, total_expenses = get_monthly_income(user, selected_month, selected_year)
 
     # Pass the values to the template
-    return render_template('dashboard.html', total_income=total_income, total_expenses=total_expenses)
+    return render_template('index.html', total_income=total_income, total_expenses=total_expenses)
 
 @app.route('/register', methods=['GET', 'POST'])
 def register():
@@ -50,7 +50,10 @@ def login():
 
 if __name__ == "__main__":
     with app.app_context():
-        db.create_all()
+        fake_transactions = [
+        Transaction(user_id=1, amount=100.00, date=datetime.now(), description='Initial deposit'),
+        Transaction(user_id=1, amount=50.00, date=datetime.now(), description='ATM withdrawal'),
+    ]
         app.run(debug=True)
 
 #with app.app_context():
