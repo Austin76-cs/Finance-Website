@@ -14,6 +14,6 @@ def get_monthly_income(user, selected_month, selected_year):
      ).all()
     
     total_income = sum(t.amount for t in monthly_transactions if t.amount > 0)
-    total_expenses = sum(t.amount for t in monthly_transactions if t.amount < 0)
+    total_expenses = abs(sum(t.amount for t in monthly_transactions if t.amount < 0))
 
     return total_income, total_expenses

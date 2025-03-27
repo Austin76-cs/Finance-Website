@@ -20,11 +20,11 @@ class Transaction(db.Model):
     description = db.Column(db.String(200))  # Optional: e.g., "Salary", "Groceries"
     user_id = db.Column(db.Integer, db.ForeignKey('user.id'))
 
-    @property
+    '''@property
     def type(self):
-        return 'income' if self.amount > 0 else 'expense' 
-    def __repr__(self):
-        return f"Transaction(amount={self.amount}, type='{self.type}', date='{self.date}', description='{self.description}')"
+        return 'income' if self.amount > 0 else 'expense'  '''
+    '''def __repr__(self):models.py
+        return f"Transaction(amount={self.amount}, type='{self.type}', date='{self.date}', description='{self.description}')" '''
 
 class Savings(db.Model):
     id = db.Column(db.Integer, primary_key=True)

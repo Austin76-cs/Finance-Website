@@ -7,16 +7,37 @@ from datetime import datetime, timezone
 from sqlalchemy.orm import sessionmaker, relationship, declarative_base
 from sqlalchemy import Column, Integer, String, ForeignKey, Sequence, create_engine
 from query import get_monthly_income
-from models import db, User, Transaction, Savings  # Import from models.py
-
+from models import db, User, Transaction, Savings 
+from flask_bcrypt import Bcrypt
 app = Flask(__name__)
 app.config['SECRET_KEY'] = os.getenv('secret_cookie_key')
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///site.db'  # Database file
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False  # To avoid warnings
 db.init_app(app)  # Initialize SQLAlchemy
+bcrypt = Bcrypt(app)
 
+test_user = [User(id = 1, email = "test_email.com", password = 'password', )]
+
+test_transactions = [
+            Transaction(
+                user_id=1,
+                amount=100.00,
+                description="",
+                date=datetime.now()
+            ),
+            Transaction(
+                user_id=1,
+                amount=-50.00,
+                description="",
+                date=datetime.now()
+            )
+        ]
 with app.app_context():
+    db.drop_all()  # Drops all tables
     db.create_all()
+    db.session.add_all(test_user)
+    db.session.add_all(test_transactions)
+    db.session.commit()
 
 @app.route('/')
 def home():
@@ -36,8 +57,12 @@ def home():
 def register():
     form = RegistrationForm()
     if form.validate_on_submit():
-        flash(f'Account created for {form.email.data}!', 'success')
-        return redirect(url_for('home'))
+        hashed_password = bcrypt.generate_password_hash(form.password.data).decode('utf-8')
+        user = User(email=form.email.data, password=hashed_password)
+        db.session.add(user)
+        db.session.commit()
+        flash(f'Account created for {form.email.data}, you can now login!', 'success')
+        return redirect(url_for('login'))
     return render_template('register.html', title= 'Register' ,form=form)
 
 @app.route('/login', methods=['GET', 'POST'])
@@ -47,25 +72,6 @@ def login():
         return redirect(url_for('home'))
     return render_template('login.html', title = 'Login', form=form)
 
-
 if __name__ == "__main__":
-    with app.app_context():
-        fake_transactions = [
-        Transaction(user_id=1, amount=100.00, date=datetime.now(), description='Initial deposit'),
-        Transaction(user_id=1, amount=50.00, date=datetime.now(), description='ATM withdrawal'),
-    ]
-        app.run(debug=True)
-
-#with app.app_context():
-    # Create a new user
-    #user_1 = User(email="example@example.com", password="password")
-    
-    # Add the user to the database session
-    #db.session.add(user_1)
-    
-    # Commit the session to save the user in the database
-    #db.session.commit()
-
-with app.app_context():
-    User.query.all()
+    app.run(debug=True)
         
