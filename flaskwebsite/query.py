@@ -1,5 +1,4 @@
-# query.py
-from models import User, Transaction, Savings  # Import from models.py
+from flaskwebsite.models import User, Transaction, Savings
 from datetime import datetime
 import calendar
 
