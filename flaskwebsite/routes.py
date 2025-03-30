@@ -1,7 +1,7 @@
 from flask import render_template, url_for, flash, redirect, request
 from flaskwebsite import app, db, bcrypt
 from flaskwebsite.forms import RegistrationForm, LoginForm
-from flaskwebsite.models import User, Transaction, Saving
+from flaskwebsite.models import User, Transaction, Savings
 from flask_login import login_user, current_user, logout_user, login_required
 from datetime import datetime
 from flaskwebsite.query import get_monthly_income
@@ -50,7 +50,7 @@ def register():
     form = RegistrationForm()
     if form.validate_on_submit():
         hashed_password = bcrypt.generate_password_hash(form.password.data).decode('utf-8')
-        user = User(username=form.username.data, email=form.email.data, password=hashed_password)
+        user = User(email=form.email.data, password=hashed_password)
         db.session.add(user)
         db.session.commit()
         flash('Your account has been created! You are now able to log in', 'success')
