@@ -1,33 +1,10 @@
 from flask import render_template, url_for, flash, redirect, request
-from flaskwebsite import app, db, bcrypt
-from flaskwebsite.forms import RegistrationForm, LoginForm
-from flaskwebsite.models import User, Transaction, Savings
+from backend import app, db, bcrypt
+from auth.forms import RegistrationForm, LoginForm
+from backend.flask_package.models import User, Transaction, Savings
 from flask_login import login_user, current_user, logout_user, login_required
 from datetime import datetime
-from flaskwebsite.query import get_monthly_income
-
-test_user = [User(id = 1, email = "test_email.com", password = 'password', )]
-
-test_transactions = [
-            Transaction(
-                user_id=1,
-                amount=100.00,
-                description="",
-                date=datetime.now()
-            ),
-            Transaction(
-                user_id=1,
-                amount=-50.00,
-                description="",
-                date=datetime.now()
-            )
-        ]
-with app.app_context():
-    db.drop_all()  # Drops all tables
-    db.create_all()
-    db.session.add_all(test_user)
-    db.session.add_all(test_transactions)
-    db.session.commit()
+from db.query import get_monthly_income
 
 @app.route('/')
 def home():
@@ -55,7 +32,7 @@ def register():
         db.session.commit()
         flash('Your account has been created! You are now able to log in', 'success')
         return redirect(url_for('login'))
-    return render_template('register.html', title='Register', form=form)
+    return render_template('frontend/templates/register.html', title='Register', form=form)
 
 @app.route("/login", methods=['GET', 'POST'])
 def login():

@@ -1,5 +1,5 @@
 from datetime import datetime
-from flaskwebsite import db, login_manager
+from flask import db, login_manager
 from flask_login import UserMixin
 
 @login_manager.user_loader
@@ -22,12 +22,6 @@ class Transaction(db.Model):
     date = db.Column(db.DateTime, nullable=False)
     description = db.Column(db.String(200))  # Optional: e.g., "Salary", "Groceries"
     user_id = db.Column(db.Integer, db.ForeignKey('user.id'))
-
-    '''@property
-    def type(self):
-        return 'income' if self.amount > 0 else 'expense'  '''
-    '''def __repr__(self):models.py
-        return f"Transaction(amount={self.amount}, type='{self.type}', date='{self.date}', description='{self.description}')" '''
 
 class Savings(db.Model):
     id = db.Column(db.Integer, primary_key=True)
