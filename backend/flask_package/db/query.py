@@ -1,4 +1,4 @@
-from flaskwebsite.models import User, Transaction, Savings
+from flask_package.models.models import User, Transaction, Savings
 from datetime import datetime
 import calendar
 

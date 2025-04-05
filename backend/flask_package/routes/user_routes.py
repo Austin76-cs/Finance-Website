@@ -1,10 +1,28 @@
 from flask import render_template, url_for, flash, redirect, request
-from backend import app, db, bcrypt
-from auth.forms import RegistrationForm, LoginForm
-from backend.flask_package.models import User, Transaction, Savings
+from flask_package import app, db, bcrypt
+from flask_package.models.models import User, Transaction, Savings 
+from flask_package.auth.forms import RegistrationForm, LoginForm 
 from flask_login import login_user, current_user, logout_user, login_required
 from datetime import datetime
-from db.query import get_monthly_income
+from ..db.query import get_monthly_income
+
+test_user = [User(id = 1, email = "test_email.com", password = 'password', )]
+
+test_transactions = [
+            Transaction(
+                user_id=1,
+                amount=100.00,
+                description="",
+                date=datetime.now()
+            ),
+            Transaction(
+                user_id=1,
+                amount=-50.00,
+                description="",
+                date=datetime.now()
+            )
+        ]
+#
 
 @app.route('/')
 def home():
