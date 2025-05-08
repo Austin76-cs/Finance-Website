@@ -6,7 +6,7 @@ The source code for this project is available in this repository.
 
 To run this project locally:
 
-1.  **Backend (Flask):**
+1.  **Backend (Flask, SQLite, PLAID API):**
     *   Ensure you have the required Python packages installed (see [`requirements.txt`]. You might need to create a virtual environment and run `pip install -r requirements.txt`.
     *   Run the Flask dev server:
         ```bash
