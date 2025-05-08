@@ -19,7 +19,6 @@ def dashboard():
 @main.route('/home')
 @login_required
 def home_old():
-    # Get the current month's transactions
     current_month = datetime.now().month
     current_year = datetime.now().year
     
@@ -29,7 +28,6 @@ def home_old():
         extract('year', Transaction.date) == current_year
     ).all()
     
-    # Calculate totals
     total_income = sum(t.amount for t in transactions if t.amount > 0)
     total_expenses = sum(abs(t.amount) for t in transactions if t.amount < 0)
     

@@ -14,7 +14,6 @@ class User(db.Model, UserMixin):
     created_at = db.Column(db.DateTime, nullable=False, default=datetime.utcnow)
     plaid_access_token = db.Column(db.String(100), nullable=True)
     
-    # Add relationship to transactions
     transactions = db.relationship('Transaction', backref='user', lazy=True)
     
     def __repr__(self):
