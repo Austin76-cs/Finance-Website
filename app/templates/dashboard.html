@@ -1,0 +1,231 @@
+{% extends "base.html" %}
+{% block content %}
+    <div class="container">
+        <h1 class="mb-4">Dashboard</h1>
+        
+        <!-- Plaid Link Button -->
+        {% if not current_user.plaid_access_token %}
+            <div class="card mb-4">
+                <div class="card-body">
+                    <h5 class="card-title">Connect Your Bank</h5>
+                    <p class="card-text">Link your bank account to start tracking your finances.</p>
+                    <button id="link-button" class="btn btn-primary">Connect Account</button>
+                </div>
+            </div>
+        {% endif %}
+        
+        <!-- Account Summary -->
+        <div class="row mb-4">
+            <div class="col-md-4">
+                <div class="card">
+                    <div class="card-body">
+                        <h5 class="card-title">Total Balance</h5>
+                        <h3 class="card-text balance-positive" id="total-balance">$0.00</h3>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="card">
+                    <div class="card-body">
+                        <h5 class="card-title">Monthly Income</h5>
+                        <h3 class="card-text balance-positive" id="monthly-income">$0.00</h3>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="card">
+                    <div class="card-body">
+                        <h5 class="card-title">Monthly Expenses</h5>
+                        <h3 class="card-text balance-negative" id="monthly-expenses">$0.00</h3>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Recent Transactions -->
+        <div class="card mb-4">
+            <div class="card-header">
+                <h5 class="mb-0">Recent Transactions</h5>
+            </div>
+            <div class="card-body">
+                <div id="transactions-list">
+                    <p class="text-muted text-center">Loading transactions...</p>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Account List -->
+        <div class="card">
+            <div class="card-header">
+                <h5 class="mb-0">Connected Accounts</h5>
+            </div>
+            <div class="card-body">
+                <div id="accounts-list">
+                    <p class="text-muted text-center">Loading accounts...</p>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock content %}
+
+{% block scripts %}
+    <script>
+      console.log("Link token is: '{{ link_token }}'");
+    </script>
+    <script src="https://cdn.plaid.com/link/v2/stable/link-initialize.js"></script>
+    <script>
+        // Function to format currency
+        function formatCurrency(amount) {
+            return new Intl.NumberFormat('en-US', {
+                style: 'currency',
+                currency: 'USD'
+            }).format(amount);
+        }
+
+        // Function to format date
+        function formatDate(dateString) {
+            return new Date(dateString).toLocaleDateString('en-US', {
+                year: 'numeric',
+                month: 'short',
+                day: 'numeric'
+            });
+        }
+
+        // Function to update account balances
+        function updateBalances(accounts) {
+            let totalBalance = 0;
+            accounts.forEach(account => {
+                totalBalance += account.balances.current || 0;
+            });
+            document.getElementById('total-balance').textContent = formatCurrency(totalBalance);
+        }
+
+        // Function to update transactions
+        function updateTransactions(transactions) {
+            const transactionsList = document.getElementById('transactions-list');
+            if (!transactions || transactions.length === 0) {
+                transactionsList.innerHTML = '<p class="text-muted text-center">No transactions to display</p>';
+                return;
+            }
+
+            let totalIncome = 0;
+            let totalExpenses = 0;
+            const transactionsHtml = transactions.map(transaction => {
+                const amount = transaction.amount;
+                if (amount > 0) {
+                    totalIncome += amount;
+                } else {
+                    totalExpenses += Math.abs(amount);
+                }
+
+                return `
+                    <div class="transaction-item mb-3">
+                        <div class="d-flex justify-content-between align-items-center">
+                            <div>
+                                <h6 class="mb-0">${transaction.name}</h6>
+                                <small class="text-muted">${formatDate(transaction.date)}</small>
+                            </div>
+                            <div class="text-${amount > 0 ? 'success' : 'danger'}">
+                                ${formatCurrency(amount)}
+                            </div>
+                        </div>
+                    </div>
+                `;
+            }).join('');
+
+            transactionsList.innerHTML = transactionsHtml;
+            document.getElementById('monthly-income').textContent = formatCurrency(totalIncome);
+            document.getElementById('monthly-expenses').textContent = formatCurrency(totalExpenses);
+        }
+
+        // Function to update accounts list
+        function updateAccounts(accounts) {
+            const accountsList = document.getElementById('accounts-list');
+            if (!accounts || accounts.length === 0) {
+                accountsList.innerHTML = '<p class="text-muted text-center">No accounts connected</p>';
+                return;
+            }
+
+            const accountsHtml = accounts.map(account => `
+                <div class="account-item mb-3">
+                    <div class="d-flex justify-content-between align-items-center">
+                        <div>
+                            <h6 class="mb-0">${account.name}</h6>
+                            <small class="text-muted">${account.type}</small>
+                        </div>
+                        <div class="text-primary">
+                            ${formatCurrency(account.balances.current)}
+                        </div>
+                    </div>
+                </div>
+            `).join('');
+
+            accountsList.innerHTML = accountsHtml;
+        }
+
+        // Fetch and display data when the page loads
+        document.addEventListener('DOMContentLoaded', function() {
+            // Fetch transactions
+            fetch('/api/transactions')
+                .then(response => response.json())
+                .then(data => {
+                    console.log('Transactions:', data);
+                    updateTransactions(data);
+                })
+                .catch(error => {
+                    console.error('Error fetching transactions:', error);
+                    document.getElementById('transactions-list').innerHTML = 
+                        '<p class="text-danger text-center">Error loading transactions</p>';
+                });
+
+            // Fetch accounts
+            fetch('/api/accounts')
+                .then(response => response.json())
+                .then(data => {
+                    console.log('Accounts:', data);
+                    updateAccounts(data);
+                    updateBalances(data);
+                })
+                .catch(error => {
+                    console.error('Error fetching accounts:', error);
+                    document.getElementById('accounts-list').innerHTML = 
+                        '<p class="text-danger text-center">Error loading accounts</p>';
+                });
+        });
+
+        // Plaid Link initialization
+        document.getElementById('link-button').onclick = function() {
+            fetch('/create_link_token', {method: 'POST'})
+                .then(response => response.json())
+                .then(data => {
+                    if (!data.link_token) {
+                        alert('Failed to get link token: ' + (data.error || 'Unknown error'));
+                        return;
+                    }
+                    const handler = Plaid.create({
+                        token: data.link_token,
+                        onSuccess: function(public_token, metadata) {
+                            fetch('/exchange_public_token', {
+                                method: 'POST',
+                                headers: {'Content-Type': 'application/json'},
+                                body: JSON.stringify({public_token: public_token, metadata: metadata})
+                            })
+                            .then(response => response.json())
+                            .then(data => {
+                                if (data.success) {
+                                    window.location.reload();
+                                }
+                            });
+                        },
+                        onExit: function(err, metadata) {
+                            // Handle user exit
+                        },
+                        onEvent: function(eventName, metadata) {
+                            // Handle events
+                        }
+                    });
+                    handler.open();
+                });
+        };
+    </script>
+{% endblock %} 
